@@ -1,3 +1,5 @@
 import type { NextConfig } from 'next';
-const nextConfig: NextConfig = { output: 'export', trailingSlash: true };
+
+const basePath = '/Darenokoe';
+const nextConfig: NextConfig = { output: 'export', trailingSlash: true, basePath, assetPrefix: `${basePath}/` };
 export default nextConfig;
