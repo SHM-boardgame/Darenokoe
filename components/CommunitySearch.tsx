@@ -1,0 +1,3 @@
+'use client';
+import Link from 'next/link'; import { useState } from 'react'; import type { Community } from '@/types/community';
+export function CommunitySearch({ communities }: { communities: Community[] }) { const [query,setQuery]=useState(''); const items=communities.filter(c=>c.name.includes(query.trim())); return <><input aria-label="コミュニティ名で検索" placeholder="コミュニティ名で検索" value={query} onChange={e=>setQuery(e.target.value)} className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-base" />{query && <ul className="mt-3 grid gap-2">{items.map(c=><li key={c.id}><Link className="block rounded-xl bg-white p-4 shadow-sm" href={`/communities/${c.slugs.join('/')}`}>{c.path.join(' ＞ ')}</Link></li>)}</ul>}</> }

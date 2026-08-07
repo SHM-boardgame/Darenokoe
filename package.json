@@ -1,0 +1,1 @@
+{"scripts":{"dev":"next dev","build":"next build","start":"next start"},"dependencies":{"@types/node":"latest","@types/react":"latest","@types/react-dom":"latest","next":"latest","react":"latest","react-dom":"latest","remark-parse":"latest","unified":"latest","wanakana":"latest"},"devDependencies":{"@tailwindcss/postcss":"latest","tailwindcss":"latest","typescript":"latest"}}
