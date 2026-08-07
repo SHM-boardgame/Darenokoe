@@ -1,3 +1,4 @@
 @import "tailwindcss";
 @theme { --color-ink: #182230; --color-accent: #176b87; }
 * { box-sizing: border-box; } body { margin: 0; background: #f5f7f8; color: var(--color-ink); font-family: Arial, "Hiragino Kaku Gothic ProN", sans-serif; } button { font: inherit; }
+@media (max-width: 639px) { .overflow-x-auto { scrollbar-width: none; } .overflow-x-auto::-webkit-scrollbar { display: none; } }
