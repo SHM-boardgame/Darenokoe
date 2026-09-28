@@ -9,6 +9,9 @@ export default function DemoPage() {
       }}
     >
       <video
+        autoPlay
+        muted
+        loop
         controls
         playsInline
         preload="metadata"
