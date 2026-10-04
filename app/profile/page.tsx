@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: '誰かの声｜プロフィールを
 
 export default function ProfilePage() {
   const { personalities, values } = loadProfileData();
-  return <main className="mx-auto max-w-4xl p-4 sm:p-6">
+  return <main id="profile-top" className="mx-auto max-w-4xl p-4 sm:p-6">
     <header className="rounded-2xl bg-cyan-800 p-5 text-white sm:p-7">
       <p className="text-sm font-medium">閑さや　岩にしみ入る　誰の声</p>
       <h1 className="mt-1 text-3xl font-bold">誰かの声<br />プロフィールを作ろう！</h1>

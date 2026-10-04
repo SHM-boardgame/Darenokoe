@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { ProfileOption, ProfileType } from '@/types/profile';
 
 const chooseRandom = (options: ProfileOption[]) => options[Math.floor(Math.random() * options.length)];
@@ -8,11 +8,30 @@ const chooseRandom = (options: ProfileOption[]) => options[Math.floor(Math.rando
 export function ProfileBuilder({ personalities, values }: { personalities: ProfileOption[]; values: ProfileOption[] }) {
   const [personality, setPersonality] = useState<ProfileOption | undefined>();
   const [value, setValue] = useState<ProfileOption | undefined>();
+  const valueSectionRef = useRef<HTMLElement>(null);
+  const profileSectionRef = useRef<HTMLElement>(null);
+
+  const scrollTo = (target: React.RefObject<HTMLElement | null>) => {
+    window.requestAnimationFrame(() => target.current?.scrollIntoView({
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      block: 'start',
+    }));
+  };
+
+  const selectPersonality = (option: ProfileOption) => {
+    setPersonality(option);
+    scrollTo(valueSectionRef);
+  };
+
+  const selectValue = (option: ProfileOption) => {
+    setValue(option);
+    scrollTo(profileSectionRef);
+  };
 
   return <>
-    <ProfileSection title="性格を選ぼう" type="personality" options={personalities} selected={personality} onSelect={setPersonality} />
-    <ProfileSection title="価値観を選ぼう" type="value" options={values} selected={value} onSelect={setValue} />
-    <section aria-live="polite" className="mt-10 rounded-2xl border-2 border-cyan-700 bg-cyan-50 p-5">
+    <ProfileSection title="性格を選ぼう" type="personality" options={personalities} selected={personality} onSelect={selectPersonality} />
+    <section ref={valueSectionRef} className="scroll-mt-4"><ProfileSection title="価値観を選ぼう" type="value" options={values} selected={value} onSelect={selectValue} /></section>
+    <section ref={profileSectionRef} aria-live="polite" className="mt-10 scroll-mt-4 rounded-2xl border-2 border-cyan-700 bg-cyan-50 p-5">
       <h2 className="text-xl font-bold">あなたのプロフィール</h2>
       {!personality && !value ? <p className="mt-3 text-slate-700">性格または価値観を選ぶと、ここにプロフィールが表示されます。</p> : <>
         <p className="mt-4 text-2xl font-bold leading-relaxed">{personality?.name}{personality && value ? ' × ' : ''}{value?.name}</p>
@@ -29,6 +48,7 @@ export function ProfileBuilder({ personalities, values }: { personalities: Profi
         <li className="rounded-xl border p-3"><span className="font-bold text-cyan-700">2.</span> 作句カードに書く</li>
         <li className="rounded-xl border p-3"><span className="font-bold text-cyan-700">3.</span> キャラクターのプロフィールに重ねる</li>
       </ol>
+      <a href="#profile-top" className="mt-6 inline-flex min-h-11 items-center rounded-lg border border-slate-300 bg-white px-4 text-sm font-medium">↑ ページのトップに戻る</a>
     </section>
   </>;
 }
